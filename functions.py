@@ -17,11 +17,15 @@ def read_json(file):
 
     with open(file) as file_lines:
         for count, line in enumerate(file_lines):
-            data = json.loads(line.strip())
-            if count == 0:
-                dataset, keys = init_ds(data)
-            for k in keys:
-                dataset[k].append(data[k])
+            while count < 100:
+                data = json.loads(line.strip())
+                if count == 0:
+                    dataset, keys = init_ds(data)
+                try:
+                    for k in keys:
+                        dataset[k].append(data[k])
+                except:
+                    print('didnt find')
         return pd.DataFrame(dataset)
 
 def simple_cleaning_function_i_made(text, tokenizer, stemmer):
